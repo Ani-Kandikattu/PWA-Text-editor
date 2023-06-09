@@ -18,14 +18,17 @@ module.exports = () => {
       path: path.resolve(__dirname, "dist"),
     },
     plugins: [
+      // For generating HTML file and injecting bundles
       new HtmlWebpackPlugin({
         template: "./index.html",
         title: "Jate",
       }),
+      // For generating service worker to cache the assets
       new InjectManifest({
         swSrc: "./src-sw.js",
         swDest: "src-sw.js",
       }),
+      // For generating the mainfest.json file
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
@@ -47,7 +50,26 @@ module.exports = () => {
     ],
 
     module: {
-      rules: [],
+      rules: [
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
+            },
+          },
+        },
+      ],
     },
   };
 };
