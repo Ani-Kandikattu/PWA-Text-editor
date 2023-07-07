@@ -44,4 +44,4 @@
 
   Email: anikandikattu@gmail.com
 
-  Link to this repository: https://github.com/Ani-Kandikattu/readme-generator
+  Link to this repository: https://github.com/Ani-Kandikattu/PWA-Text-editor
